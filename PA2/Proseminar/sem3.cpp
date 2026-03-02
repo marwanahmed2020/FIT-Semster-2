@@ -25,7 +25,7 @@ public:
         return age < other.age; // newer cars have smaller age
     }
 
-    bool haslicenseplate(const string& plate) 
+    bool haslicenseplate(const string& plate) const
     {
         return this->LP == plate; // check if license plate matches
     }
@@ -37,6 +37,19 @@ public:
     }
 };
 
+// check if license plate already exists in database
+bool hasSameLp(const vector<Tcar>& db, const string& LP)
+{
+    for(size_t i = 0; i < db.size(); ++i)
+    {
+        if(db[i].haslicenseplate(LP))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 // insert function (database, string owner, string LP, unsigned age) pass by reference
 // insert new with vector
 bool insertCar(vector<Tcar>& db, const string& owner, const string& LP, unsigned int age)
@@ -44,6 +57,12 @@ bool insertCar(vector<Tcar>& db, const string& owner, const string& LP, unsigned
     if(db.size() >= MAX_SIZE)
     {
         return false;
+    }
+
+    // check if license plate already exists
+    if(hasSameLp(db, LP))
+    {
+        return false; // duplicate license plate
     }
 
     db.push_back(Tcar(owner, LP, age)); // add new car to the database
@@ -94,6 +113,18 @@ int main()
     insertCar(db, "Diana", "PQR999", 1);
     cout << "Inserted 4 cars." << endl;
     printDB(db);
+    cout << endl;
+
+    // Test 1.5: Try to insert duplicate license plate
+    cout << "=== Test 1.5: Trying to Insert Duplicate License Plate ===" << endl;
+    if(insertCar(db, "Eve", "ABC123", 3))
+    {
+        cout << "Car inserted successfully." << endl;
+    }
+    else
+    {
+        cout << "Failed to insert car (duplicate license plate or database full)." << endl;
+    }
     cout << endl;
 
     // Test 2: Sort the database by age

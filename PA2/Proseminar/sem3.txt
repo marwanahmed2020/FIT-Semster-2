@@ -1,0 +1,5 @@
+car registration >> database 
+ 
+creating an appliation that strore and retreieve vast ammount of data 
+
+naive solution vs oop aproach 

@@ -30,3 +30,5 @@ printout.
 important first implement the sort function in c and then in c++ using sort function with comprator
 
 what is lambda functions ??
+
+learn working with date change age to manfuatre date ?? <<<<<<<<<<<<<<<<<< important

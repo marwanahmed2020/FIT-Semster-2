@@ -3,84 +3,146 @@
 #include <string>
 #include <algorithm>
 
+// lets use vector instead of array for better memory management and dynamic resizing
+#include <vector>
+
 using namespace std;
 
 constexpr size_t MAX_SIZE = 100;
 
 // struct for the car 
-struct Tcar
+class Tcar
 {
     string owner;
     string LP; // license plate
     unsigned int age ;
+public:
+    // adding constructor for Tcar
+    Tcar(const string& owner, const string& LP, unsigned int age) : owner(owner), LP(LP), age(age) {}
 
-    // comparator for sorting by age it should be friend function of Tcar
-    bool compareByAge(const Tcar& a, const Tcar& b)
+    bool isNewerthan(const Tcar& other) const
     {
-        return a.age < b.age; // sort by age
+        return age < other.age; // newer cars have smaller age
+    }
+
+    bool haslicenseplate(const string& plate) 
+    {
+        return this->LP == plate; // check if license plate matches
+    }
+
+    friend ostream& operator<<(ostream& os, const Tcar& car)
+    {
+        os << "Owner: " << car.owner << ", License Plate: " << car.LP << ", Age: " << car.age;
+        return os;
     }
 };
 
-
-
-// insert function (datebase, database size, string owner, string LP, unsigned age) pass by reference
+// insert function (database, string owner, string LP, unsigned age) pass by reference
+// insert new with vector
+bool insertCar(vector<Tcar>& db, const string& owner, const string& LP, unsigned int age)
 {
-    if(dbSize > MAX_SIZE)
+    if(db.size() >= MAX_SIZE)
     {
         return false;
     }
 
-    db [ dbSize ].owner = owner;
-    db [ dbSize ].LP = LP;
-    db [ dbSize ++ ].age = age;
+    db.push_back(Tcar(owner, LP, age)); // add new car to the database
 
     return true;
 }
 
-// remove car function
-void removeCar(Tcar db[], size_t& dbSize, const string& LP)
+// remove car function - updated for vector with back() and pop_back()
+bool removeCar(vector<Tcar>& db, const string& LP)
 {
-    for(size_t i = 0; i < dbSize; ++i)
+    for(size_t i = 0; i < db.size(); ++i)
     {
-        if(db[i].LP == LP) // if license plate matches
+        if(db[i].haslicenseplate(LP))
         {
-            // shift all elements after the removed car to the left
-            for(size_t j = i; j < dbSize - 1; ++j)
-            {
-                db[j] = db[j + 1];
-            }
-            --dbSize; // decrease database size
-            return;
+            db[i] = db.back(); // replace with last element
+            db.pop_back();     // remove last element
+            return true;
         }
     }
+    return false;
 }
 
-
-
-// sort databse using std::sort
-void sortDB(Tcar db[], size_t dbSize)
+// sort database using std::sort
+void sortDB(vector<Tcar>& db)
 {
-    sort(db, db + dbSize, [](const Tcar& a, const Tcar& b) { // labda function for sorting by owner age
-        return a.age < b.age; // sort by age
+    sort(db.begin(), db.end(), [](const Tcar& a, const Tcar& b) {
+        return a.isNewerthan(b); // sort by age (newer cars first)
     });
 }
 
-
-
-// print car 
-
-
-
 // print database function
-void printDB(const Tcar db[], size_t dbSize)
-{    for(size_t i = 0; i < dbSize; ++i)
+void printDB(const vector<Tcar>& db)
+{
+    for(size_t i = 0; i < db.size(); ++i)
     {
-        cout << "Owner: " << db[i].owner << ", License Plate: " << db[i].LP << ", Age: " << db[i].age << endl;
+        cout << db[i] << endl;
     }
-}   
-
+}
 int main()
 {
-    Tcar db[MAX_SIZE];
-    size_t dbSize ;
+    vector<Tcar> db;
+
+    // Test 1: Insert some cars
+    cout << "=== Test 1: Inserting Cars ===" << endl;
+    insertCar(db, "Alice", "ABC123", 5);
+    insertCar(db, "Bob", "XYZ789", 2);
+    insertCar(db, "Charlie", "LMN456", 8);
+    insertCar(db, "Diana", "PQR999", 1);
+    cout << "Inserted 4 cars." << endl;
+    printDB(db);
+    cout << endl;
+
+    // Test 2: Sort the database by age
+    cout << "=== Test 2: Sorting by Age ===" << endl;
+    sortDB(db);
+    printDB(db);
+    cout << endl;
+
+    // Test 3: Remove a car
+    cout << "=== Test 3: Removing Car with LP 'XYZ789' ===" << endl;
+    if(removeCar(db, "XYZ789"))
+    {
+        cout << "Car removed successfully." << endl;
+    }
+    else
+    {
+        cout << "Car not found." << endl;
+    }
+    printDB(db);
+    cout << endl;
+
+    // Test 4: Try to remove non-existent car
+    cout << "=== Test 4: Removing Non-existent Car ===" << endl;
+    if(removeCar(db, "NOTFOUND"))
+    {
+        cout << "Car removed successfully." << endl;
+    }
+    else
+    {
+        cout << "Car not found." << endl;
+    }
+    cout << endl;
+
+    // Test 5: Test isNewerthan method
+    cout << "=== Test 5: Testing isNewerthan ===" << endl;
+    if(db.size() >= 2)
+    {
+        cout << "Comparing first two cars:" << endl;
+        cout << db[0] << endl;
+        cout << db[1] << endl;
+        if(db[0].isNewerthan(db[1]))
+        {
+            cout << "First car is newer than second car." << endl;
+        }
+        else
+        {
+            cout << "First car is NOT newer than second car." << endl;
+        }
+    }
+
+    return 0;
 }

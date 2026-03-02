@@ -3,3 +3,30 @@ car registration >> database
 creating an appliation that strore and retreieve vast ammount of data 
 
 naive solution vs oop aproach 
+
+
+
+requirments :
+
+
+Our problem – develop a car database program. A car has the
+
+following attributes:
+
+registration (RZ),
+age,
+owner.
+
+The program maintains a list of cars (an array). 
+
+The required functions are:
+
+insert a new car,
+remove (delete) a car,
+sort the database by car age,
+printout.
+
+
+important first implement the sort function in c and then in c++ using sort function with comprator
+
+what is lambda functions ??

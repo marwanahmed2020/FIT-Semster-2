@@ -32,3 +32,13 @@ important first implement the sort function in c and then in c++ using sort func
 what is lambda functions ??
 
 learn working with date change age to manfuatre date ?? <<<<<<<<<<<<<<<<<< important
+
+
+using auto in remove function 
+
+>>>>>>>>>>>>> i want to leanr using for each loop
+
+?????? pasing by instance rather than passing by reference in the functions
+
+ copy constractor vs move constractor
+ std::move

@@ -1,0 +1,8 @@
+there will be a problem with the operator +
+when we will try to add to number from lhs and rhs 
+we dont know which side will be the imaginary and the real 
+
+
+so there will be a solution for this problem 
+and for all methods we dont know which side is which
+for example in the comparasions 

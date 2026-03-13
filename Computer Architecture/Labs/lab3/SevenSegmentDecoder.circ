@@ -57,49 +57,72 @@
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="downloadFrequency" val="2.5E7"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(70,190)" name="Pin">
+    <boardmap boardname="BASYS3">
+      <mc/>
+      <mc key="/Input_1" map="647,323"/>
+      <mc key="/Input_2" map="609,323"/>
+      <mc key="/Input_3" map="571,323"/>
+      <mc key="/Input_4" map="535,323"/>
+    </boardmap>
+    <comp lib="0" loc="(350,440)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="label" val="Input_1"/>
     </comp>
-    <comp lib="0" loc="(70,230)" name="Pin">
+    <comp lib="0" loc="(350,480)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="label" val="Input_2"/>
     </comp>
-    <comp lib="0" loc="(70,270)" name="Pin">
+    <comp lib="0" loc="(350,520)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="label" val="Input_3"/>
     </comp>
-    <comp lib="0" loc="(70,310)" name="Pin">
+    <comp lib="0" loc="(350,560)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="label" val="Input_4"/>
     </comp>
-    <comp lib="5" loc="(450,390)" name="7-Segment Display"/>
-    <comp loc="(370,190)" name="SevenSeg"/>
-    <wire from="(150,250)" to="(150,310)"/>
-    <wire from="(370,190)" to="(470,190)"/>
-    <wire from="(370,210)" to="(480,210)"/>
-    <wire from="(370,230)" to="(390,230)"/>
-    <wire from="(370,250)" to="(410,250)"/>
-    <wire from="(370,270)" to="(430,270)"/>
-    <wire from="(370,290)" to="(460,290)"/>
-    <wire from="(370,310)" to="(450,310)"/>
-    <wire from="(390,230)" to="(390,510)"/>
-    <wire from="(390,510)" to="(470,510)"/>
-    <wire from="(410,250)" to="(410,490)"/>
-    <wire from="(410,490)" to="(460,490)"/>
-    <wire from="(430,270)" to="(430,470)"/>
-    <wire from="(430,470)" to="(450,470)"/>
-    <wire from="(450,310)" to="(450,390)"/>
-    <wire from="(450,450)" to="(450,470)"/>
-    <wire from="(460,290)" to="(460,390)"/>
-    <wire from="(460,450)" to="(460,490)"/>
-    <wire from="(470,190)" to="(470,390)"/>
-    <wire from="(470,450)" to="(470,510)"/>
-    <wire from="(480,210)" to="(480,390)"/>
-    <wire from="(70,190)" to="(150,190)"/>
-    <wire from="(70,210)" to="(150,210)"/>
-    <wire from="(70,210)" to="(70,230)"/>
-    <wire from="(70,270)" to="(90,270)"/>
-    <wire from="(70,310)" to="(150,310)"/>
-    <wire from="(90,230)" to="(150,230)"/>
-    <wire from="(90,230)" to="(90,270)"/>
+    <comp lib="5" loc="(850,620)" name="7-Segment Display">
+      <a name="label" val="L_7_Segment_Display_1"/>
+    </comp>
+    <comp loc="(770,420)" name="SevenSeg">
+      <a name="label" val="SevenSeg_1"/>
+    </comp>
+    <wire from="(350,440)" to="(360,440)"/>
+    <wire from="(350,480)" to="(470,480)"/>
+    <wire from="(350,520)" to="(490,520)"/>
+    <wire from="(350,560)" to="(360,560)"/>
+    <wire from="(360,290)" to="(360,440)"/>
+    <wire from="(360,290)" to="(470,290)"/>
+    <wire from="(360,540)" to="(360,560)"/>
+    <wire from="(360,540)" to="(550,540)"/>
+    <wire from="(470,290)" to="(470,420)"/>
+    <wire from="(470,420)" to="(550,420)"/>
+    <wire from="(470,440)" to="(470,480)"/>
+    <wire from="(470,440)" to="(550,440)"/>
+    <wire from="(490,460)" to="(490,520)"/>
+    <wire from="(490,460)" to="(550,460)"/>
+    <wire from="(550,480)" to="(550,540)"/>
+    <wire from="(770,420)" to="(870,420)"/>
+    <wire from="(770,440)" to="(880,440)"/>
+    <wire from="(770,460)" to="(790,460)"/>
+    <wire from="(770,480)" to="(810,480)"/>
+    <wire from="(770,500)" to="(830,500)"/>
+    <wire from="(770,520)" to="(860,520)"/>
+    <wire from="(770,540)" to="(850,540)"/>
+    <wire from="(790,460)" to="(790,740)"/>
+    <wire from="(790,740)" to="(870,740)"/>
+    <wire from="(810,480)" to="(810,720)"/>
+    <wire from="(810,720)" to="(860,720)"/>
+    <wire from="(830,500)" to="(830,700)"/>
+    <wire from="(830,700)" to="(850,700)"/>
+    <wire from="(850,540)" to="(850,620)"/>
+    <wire from="(850,680)" to="(850,700)"/>
+    <wire from="(860,520)" to="(860,620)"/>
+    <wire from="(860,680)" to="(860,720)"/>
+    <wire from="(870,420)" to="(870,620)"/>
+    <wire from="(870,680)" to="(870,740)"/>
+    <wire from="(880,440)" to="(880,620)"/>
   </circuit>
   <circuit name="SevenSeg">
     <a name="appearance" val="logisim_evolution"/>

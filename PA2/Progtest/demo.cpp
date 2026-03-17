@@ -3,19 +3,17 @@
 using namespace std;
 
 
-int & foo ( int b )
- {
-   static int a = 60;
-
-   a += b;  
-   return a;
- } 
 
 
 
 int main()
 {
-    int x = foo( 0 );
-    int y = foo( 1 );
-    cout << (x + y);
+   
+    int i, * a = new int [67];
+
+    for ( i = 0; i < 67; i ++ )
+    a[i] = i;
+    delete a; 
+    cout << i;
+
 }

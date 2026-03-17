@@ -1,0 +1,18 @@
+making vector 
+
+learning about control block inside the implementation of vector
+
+reference pointer
+
+
+couting reference model
+
+test with valgrind , -g -fsantaize
+
+there wil be some memory leaks  cause we did use delete[]  delete in the Destructor properly
+
+we can check the copy assignment and copy constructor
+
+what is shared pointer?
+is shared ptr used in real life?
+learning debbuging memory leaks 

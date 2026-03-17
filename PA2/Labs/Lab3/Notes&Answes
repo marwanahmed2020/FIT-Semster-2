@@ -1,0 +1,29 @@
+What are the visibility types and what are their differences?
+{
+    public : accessible from anywhere the object is visible
+    private: accecssible only inside the same class and friend like friend function
+    protected: accessible inside the class and derived classes, but not from unrelated outsidec code
+}
+
+Define a constructor and a destructor. What are they good for?
+{
+
+}
+
+What is the static keyword used for?
+{
+    class static member: shared by all objects of the class (one copy total)
+    class static method: callable without an object without an object; can access only static memebers directly
+
+}
+
+What is the this keyword and how can it be used?
+{   
+    this is a pointer to the current object inside a non-static member function
+    Common uses: disambiguate member vs parameter (this->x = x), return current object (return *this), pass current object to another function.
+}
+
+Why do we use modules?
+{
+
+}

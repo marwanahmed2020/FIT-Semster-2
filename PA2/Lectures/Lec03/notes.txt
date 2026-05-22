@@ -1,0 +1,17 @@
+this keyword 
+
+struct T
+{
+    int a;     // "Room Alex" — the member variable, lives permanently in the object
+    voud function(int a); // "Visitor Alex" — the parameter, arrives when the function is called
+}
+
+void T::f(int a) 
+{            // shadows T::a
+T::a = a;      // permanently Alex
+
+this->a -= 10;      // Visitor Alex
+
+this->T::a += 2;       // or even both
+}
+

@@ -159,7 +159,6 @@ CRat& CRat::operator+=(const CRat& y)
 
 
 
-
 int main()
 {
     using namespace std;

@@ -20,6 +20,16 @@ private:
 public:
   CTimeStamp();
   CTimeStamp(int year, int month, int day, int hour, int minute, int second);
+   bool operator<(const CTimeStamp& o) const {
+  if (year_!=o.year_) return year_<o.year_;
+  if (month_!=o.month_) return month_<o.month_;
+  if (day_!=o.day_) return day_<o.day_;
+  if (hour_!=o.hour_) return hour_<o.hour_;
+  if (minute_!=o.minute_) return minute_<o.minute_;
+  return second_<o.second_;
+}
+bool operator<=(const CTimeStamp& o) const { return ! (o < *this); }
+  
 };
 
 CTimeStamp::CTimeStamp(int year, int month, int day, int hour, int minute, int second)
@@ -33,7 +43,6 @@ CTimeStamp::CTimeStamp(){}
 class CContact
 {
 private:
-  CTimeStamp time_;
   int phone1_, phone2_;
 
 public:
@@ -42,14 +51,29 @@ public:
   bool involves(int phone) const;
   int getOtherPhone(int phone) const;
   const CTimeStamp& time() const { return time_; }
-}; 
+  
+  
+// Lexicographic comparison for timestamps
+bool CTimeStamp::operator<(const CTimeStamp &o) const
+{
+  if (year_ != o.year_) return year_ < o.year_;
+  if (month_ != o.month_) return month_ < o.month_;
+  if (day_ != o.day_) return day_ < o.day_;
+  if (hour_ != o.hour_) return hour_ < o.hour_;
+  if (minute_ != o.minute_) return minute_ < o.minute_;
+  return second_ < o.second_;
+}
+
+bool CTimeStamp::operator<=(const CTimeStamp &o) const
+{
+  return ! (o < *this);
+}
 
 CContact::CContact(const CTimeStamp &time, int phone1, int phone2) :
   time_(time), phone1_(phone1), phone2_(phone2)
 {}
 
 bool CContact::isSelf() const
-{
   return phone1_==phone2_; // we dont use phone here as parameter cause i dont need to i just need to find identicals if they are same then i will skip
 }
 
@@ -78,10 +102,11 @@ public:
   
   CEFaceMask &addContact(const CContact &contact);
   std::vector<int> CEFaceMask::listContacts(int phone) const;
-  
+  std::vector<int> listContacts(int phone, const CTimeStamp &from, const CTimeStamp &to) const;
+ 
 };
 
-CEFaceMask::CEFaceMask() {}
+//CEFaceMask::CEFaceMask() {}
 
 CEFaceMask & CEFaceMask::addContact(const CContact &contact) 
 {
@@ -102,11 +127,36 @@ std::vector<int> CEFaceMask::listContacts(int phone) const
       continue;
     
     // then try involves 
-    if(c.involves(phone))
-      results.push_back(c.getOtherPhone(phone));
+    if(c.involves(phone)){
+      int other = c.getOtherPhone(phone);
+      if(std::find(results.begin(), results.end(), other) == results.end()) // so find returns the value that we find and if not the value we are searching for are there then find will return the last element
       
+      {
+        results.push_back(other);
+      }
+    }
   }
   return results;
+}
+
+std::vector<int> CEFaceMask::listContacts(int phone, const CTimeStamp &from, const CTimeStamp &to) const
+{
+    std::vector<int> result;
+
+    for (const CContact &c : contacts_)
+    {
+        if (c.isSelf() || !c.involves(phone))
+            continue;
+
+        if (!c.time().inside(from, to))
+            continue;
+
+        int other = c.getOtherPhone(phone);
+        if (std::find(result.begin(), result.end(), other) == result.end())
+            result.push_back(other);
+    }
+
+    return result;
 }
 
 int main ()

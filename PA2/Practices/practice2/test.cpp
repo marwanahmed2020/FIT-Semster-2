@@ -44,6 +44,7 @@ class CContact
 {
 private:
   int phone1_, phone2_;
+  CTimeStamp time_;
 
 public:
   CContact(const CTimeStamp &time, int phone1, int phone2);
@@ -52,29 +53,16 @@ public:
   int getOtherPhone(int phone) const;
   const CTimeStamp& time() const { return time_; }
   
-  
-// Lexicographic comparison for timestamps
-bool CTimeStamp::operator<(const CTimeStamp &o) const
-{
-  if (year_ != o.year_) return year_ < o.year_;
-  if (month_ != o.month_) return month_ < o.month_;
-  if (day_ != o.day_) return day_ < o.day_;
-  if (hour_ != o.hour_) return hour_ < o.hour_;
-  if (minute_ != o.minute_) return minute_ < o.minute_;
-  return second_ < o.second_;
-}
+};
 
-bool CTimeStamp::operator<=(const CTimeStamp &o) const
+CContact::CContact(const CTimeStamp &time, int phone1, int phone2)
+  : phone1_(phone1), phone2_(phone2), time_(time)
 {
-  return ! (o < *this);
 }
-
-CContact::CContact(const CTimeStamp &time, int phone1, int phone2) :
-  time_(time), phone1_(phone1), phone2_(phone2)
-{}
 
 bool CContact::isSelf() const
-  return phone1_==phone2_; // we dont use phone here as parameter cause i dont need to i just need to find identicals if they are same then i will skip
+{
+  return phone1_==phone2_; // identical phones = self-contact
 }
 
 bool CContact::involves(int phone) const
@@ -88,6 +76,7 @@ int CContact::getOtherPhone(int phone) const
     return phone2_;
   if(phone2_==phone) 
     return phone1_;
+  return -1;
 }
  
 
@@ -101,12 +90,12 @@ public:
   CEFaceMask();
   
   CEFaceMask &addContact(const CContact &contact);
-  std::vector<int> CEFaceMask::listContacts(int phone) const;
+  std::vector<int> listContacts(int phone) const;
   std::vector<int> listContacts(int phone, const CTimeStamp &from, const CTimeStamp &to) const;
  
 };
 
-//CEFaceMask::CEFaceMask() {}
+CEFaceMask::CEFaceMask() {}
 
 CEFaceMask & CEFaceMask::addContact(const CContact &contact) 
 {
@@ -148,8 +137,8 @@ std::vector<int> CEFaceMask::listContacts(int phone, const CTimeStamp &from, con
         if (c.isSelf() || !c.involves(phone))
             continue;
 
-        if (!c.time().inside(from, to))
-            continue;
+    if (c.time() < from || to < c.time())
+      continue;
 
         int other = c.getOtherPhone(phone);
         if (std::find(result.begin(), result.end(), other) == result.end())

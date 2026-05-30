@@ -82,19 +82,29 @@ CTextNote & CTextNote::operator=(CTextNote other)
 
 void CTextNote::addLine(const std::string &line)
 {
-    if(m_Size <= m_Capacity)
+    if(m_Size == m_Capacity)
     {
-        std::cout<< "the Text note is full" << std::endl;
+        std::size_t newCap;
+        if(m_Capacity == 0)
+            newCap = 2;
+        else
+            newCap = m_Capacity * 2; // incresead the size of the note
+            // by 2 lines
+
+        auto newData = std::make_unique<std::string[]>(newCap);
+        for(std::size_t i =0; i<m_Size; i++)
+        {
+            newData[i] = m_Data[i];
+        }
+
+        m_Data = std::move(newData);
+        m_Capacity = newCap;
     }
-    else if(line.size()+m_Capacity > m_Size)
-    {
-        std::cout<<"the line is too long for the size of the text note"<<std::endl;
-    }
-    else
-    {
-        m_Capacity += line.size();
-        
-    }
+
+    m_Data[m_Size++] = line;
+
+
+
 }
 
 
